@@ -1,0 +1,46 @@
+server:
+  port: 9000
+eureka:
+  instance:
+    hostname: localhost   
+  
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: department-service
+        uri: lb://department-service
+        predicates:
+        - Path=/department/**
+#        filters:
+#        - name: CircuitBreaker
+#          args:
+#            name: department-service
+#            fallbackUri: forward://departmentservice
+          
+      - id: user-service
+        uri: lb://user-service
+        predicates:
+        - Path=/user/**
+#        filters:
+#        - name: CircuitBreaker
+#          args:
+#            name: user-service
+#            fallbackUri: forward:///userservice
+      - id: library-service
+        uri: lb://library-service
+        predicates:
+        - Path=/book/**
+#        filters:
+#        - name: CircuitBreaker
+#          args:
+#            name: library-service
+#            fallbackUri: forward:///lib
+        
+        
+     
+       
+ 
+     
